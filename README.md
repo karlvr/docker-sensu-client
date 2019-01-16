@@ -23,6 +23,14 @@ variables that are available and creating Docker secrets for the RabbitMQ certif
 | RABBITMQ_SSL_CERT_CHAIN_FILE | - | The file path to the RabbitMQ SSL certificate chain file. Must be accessible inside the Docker container. Suggest using Docker secrets to provide this file—see the `docker-compose.yml` example. |
 | RABBITMQ_SSL_PRIVATE_KEY_FILE | - | The file path to the RabbitMQ SSL certificate private key file. Must be accessible inside the Docker container. Suggest using Docker secrets to provide this file—see the `docker-compose.yml` example. |
 
+### Checks
+
+Checks are created by adding their `.json` files to the `/etc/sensu/conf.d` directory. If you bind a volume to
+that path, you will get a few extra files created in their by the `docker-entrypoint.sh` script in this image.
+
+I suggest extending this image and adding your checks to the image in the `/etc/sensu/conf.d` directory. You can add
+any additional scripts that you require to run the checks anywhere in the image.
+
 ## Building
 
 ```
