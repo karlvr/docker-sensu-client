@@ -1,0 +1,20 @@
+---
+version: '3.7'
+services:
+  sensu-client:
+    build: ./
+    image: karlvr/sensu-client:latest
+    environment:
+      SENSU_CLIENT_NAME: swarm
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PASSWORD: password
+      RABBITMQ_SSL_CERT_CHAIN_FILE: /var/run/secrets/rabbitmq_cert
+      RABBITMQ_SSL_PRIVATE_KEY_FILE: /var/run/secrets/rabbitmq_key
+    secrets:
+    - rabbitmq_cert
+    - rabbitmq_key
+secrets:
+  rabbitmq_cert:
+    file: ./cert.pem
+  rabbitmq_key:
+    file: ./key.pem
