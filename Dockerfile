@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && \
+RUN groupadd --gid 3030 sensu && useradd --home-dir /var/run/sensu --no-create-home --shell /usr/sbin/nologin --uid 3030 --gid 3030 sensu && \
+	apt-get update && \
 	apt-get install -y --no-install-recommends \
 		apt-transport-https \
 		ca-certificates \
@@ -29,5 +30,6 @@ ENV RABBITMQ_SSL_CERT_CHAIN_FILE ""
 ENV RABBITMQ_SSL_PRIVATE_KEY_FILE ""
 
 COPY ./docker-entrypoint.sh /
+USER 3030
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["sensu-client"]
